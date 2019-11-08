@@ -1,0 +1,20 @@
+- session:
+id
+type
+topic
+status: open, closed
+insert_time
+open_time
+close_time
+
+- user_session:
+id
+ttl
+session_id
+user_id
+status: open, closed, pending
+insert_time
+join_time
+reactive_time
+leave_time
+close_time

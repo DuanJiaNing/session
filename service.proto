@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+// import "google/api/annotations.proto";
+// import "google/api/visibility.proto";
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+
+package com.duan.session;
+
+enum SessionStatus {
+    OPEN = 0;
+    CLOSED = 1;
+}
+
+enum UserSessionStatus {
+    OPEN = 0;
+    CLOSED = 1;
+    PENDING = 2;
+}
+
+message Response {
+    bool success = 1;
+    string msg = 2;
+    int32 code = 3;
+    OneOfPayload payload = 4;
+}
+
+message Session {
+    string id = 1;
+    int32 type = 2;
+    SessionStatus status = 3;
+    string topic = 4;
+}
+
+message UserSession {
+    UserSessionStatus status = 1;
+    string user_id = 2;
+    Session session = 3;
+}
+
+message OneOfPayload {
+    JoinResponse join_response = 1;
+    RefreshStatusResponse refresh_status_response = 2;
+    PauseResponse pause_response = 3;
+    LeaveResponse leave_response = 4;
+    UserCountInSessionResponse user_count_in_session_response = 5;
+}
+
+message JoinRequest {
+    string session_id = 1;
+    string user_id = 2;
+}
+
+message JoinResponse {
+    UserSession user_session = 1;
+}
+
+message PauseResponse {
+    UserSession user_session = 1;
+}
+
+message LeaveRequest {
+    string session_id = 1;
+    string user_id = 2;
+}
+
+message LeaveResponse {
+    UserSession user_session = 1;
+}
+
+message UserCountInSessionResponse {
+    int32 count = 1;
+}
+
+message RefreshStatusRequest {
+    string session_id = 1;
+    string user_id = 2;
+}
+
+message RefreshStatusResponse {
+    UserSession user_session = 1;
+}
+
+message PauseRequest {
+    string session_id = 1;
+    string user_id = 2;
+}
+
+message UserCountInSessionRequest {
+    string session_id = 1;
+}
+
+message UserCountInSessionResponse {
+    string session_id = 1;
+}
+
+service SessionService {
+
+    // only count user_session.status is OPEN and PENDING
+    rpc UserCountInSession (UserCountInSessionRequest) returns (Response) {
+    }
+
+    rpc Join (JoinRequest) returns (Response) {
+    }
+
+    // if in pending, will reactive, update reactive_time
+    rpc RefreshStatus (RefreshStatusRequest) returns (Response) {
+    }
+
+    rpc Pause (PauseRequest) returns (Response) {
+    }
+
+    rpc Leave (LeaveRequest) returns (Response) {
+        // option (google.api.http) = {
+        //   post: "/v1alpha1/insertData"
+        //   body: "*"
+        // };
+    }
+}
