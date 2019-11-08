@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.duan.session;
+
+enum UserSessionStatus {
+    OPEN = 0;
+    CLOSED = 1;
+    PENDING = 2;
+}
+
+message UserSession {
+    UserSessionStatus status = 1;
+    string user_id = 2;
+    string session_id = 3;
+}

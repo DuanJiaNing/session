@@ -1,41 +1,15 @@
 syntax = "proto3";
 
-// import "google/api/annotations.proto";
-// import "google/api/visibility.proto";
-//import "google/protobuf/empty.proto";
-//import "google/protobuf/timestamp.proto";
-
 package com.duan.session;
 
-enum SessionStatus {
-    OPEN = 0;
-    CLOSED = 1;
-}
-
-enum UserSessionStatus {
-    OPEN = 0;
-    CLOSED = 1;
-    PENDING = 2;
-}
+import "com/duan/session/session.proto";
+import "com/duan/session/user_session.proto";
 
 message Response {
     bool success = 1;
     string msg = 2;
     int32 code = 3;
     OneOfPayload payload = 4;
-}
-
-message Session {
-    string id = 1;
-    int32 type = 2;
-    SessionStatus status = 3;
-    string topic = 4;
-}
-
-message UserSession {
-    UserSessionStatus status = 1;
-    string user_id = 2;
-    Session session = 3;
 }
 
 message OneOfPayload {
@@ -46,17 +20,22 @@ message OneOfPayload {
     UserCountInSessionResponse user_count_in_session_response = 5;
 }
 
+message UserSessionData {
+    Session session = 1;
+    UserSession user = 2;
+}
+
 message JoinRequest {
     string session_id = 1;
     string user_id = 2;
 }
 
 message JoinResponse {
-    UserSession user_session = 1;
+    UserSessionData user_session = 1;
 }
 
 message PauseResponse {
-    UserSession user_session = 1;
+    UserSessionData user_session = 1;
 }
 
 message LeaveRequest {
@@ -65,11 +44,7 @@ message LeaveRequest {
 }
 
 message LeaveResponse {
-    UserSession user_session = 1;
-}
-
-message UserCountInSessionResponse {
-    int32 count = 1;
+    UserSessionData user_session = 1;
 }
 
 message RefreshStatusRequest {
@@ -78,7 +53,7 @@ message RefreshStatusRequest {
 }
 
 message RefreshStatusResponse {
-    UserSession user_session = 1;
+    UserSessionData user_session = 1;
 }
 
 message PauseRequest {
@@ -91,7 +66,7 @@ message UserCountInSessionRequest {
 }
 
 message UserCountInSessionResponse {
-    string session_id = 1;
+    int32 count = 1;
 }
 
 service SessionService {
