@@ -5,21 +5,6 @@ package com.duan.session;
 import "com/duan/session/session.proto";
 import "com/duan/session/user_session.proto";
 
-message Response {
-    bool success = 1;
-    string msg = 2;
-    int32 code = 3;
-    OneOfPayload payload = 4;
-}
-
-message OneOfPayload {
-    JoinResponse join_response = 1;
-    RefreshStatusResponse refresh_status_response = 2;
-    PauseResponse pause_response = 3;
-    LeaveResponse leave_response = 4;
-    UserCountInSessionResponse user_count_in_session_response = 5;
-}
-
 message UserSessionData {
     Session session = 1;
     UserSession user = 2;
@@ -31,10 +16,6 @@ message JoinRequest {
 }
 
 message JoinResponse {
-    UserSessionData user_session = 1;
-}
-
-message PauseResponse {
     UserSessionData user_session = 1;
 }
 
@@ -61,6 +42,10 @@ message PauseRequest {
     string user_id = 2;
 }
 
+message PauseResponse {
+    UserSessionData user_session = 1;
+}
+
 message UserCountInSessionRequest {
     string session_id = 1;
 }
@@ -72,20 +57,20 @@ message UserCountInSessionResponse {
 service SessionService {
 
     // only count user_session.status is OPEN and PENDING
-    rpc UserCountInSession (UserCountInSessionRequest) returns (Response) {
+    rpc UserCountInSession (UserCountInSessionRequest) returns (UserCountInSessionResponse) {
     }
 
-    rpc Join (JoinRequest) returns (Response) {
+    rpc Join (JoinRequest) returns (JoinResponse) {
     }
 
     // if in pending, will reactive, update reactive_time
-    rpc RefreshStatus (RefreshStatusRequest) returns (Response) {
+    rpc RefreshStatus (RefreshStatusRequest) returns (RefreshStatusResponse) {
     }
 
-    rpc Pause (PauseRequest) returns (Response) {
+    rpc Pause (PauseRequest) returns (PauseResponse) {
     }
 
-    rpc Leave (LeaveRequest) returns (Response) {
+    rpc Leave (LeaveRequest) returns (LeaveResponse) {
         // option (google.api.http) = {
         //   post: "/v1alpha1/insertData"
         //   body: "*"
