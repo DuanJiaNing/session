@@ -5,12 +5,15 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/grpclog"
+	"google.golang.org/grpc/reflection"
+
+	mlog "session/log"
 	"session/service"
 )
 
 const (
-	//port = ":10021"
-	port = "127.0.0.1:10021"
+	port = ":50051"
 )
 
 func main() {
@@ -22,8 +25,9 @@ func main() {
 	service.RegisterSessionServiceServer(s)
 
 	// Register reflection service on gRPC server.
-	// reflection.Register(s)
+	reflection.Register(s)
 	log.Printf("rpc server listeing on %v", port)
+	grpclog.SetLoggerV2(mlog.NewGRpcLogger())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
