@@ -1,6 +1,6 @@
 - session:
 id
-type
+session_type
 topic
 status: open, closed
 insert_time

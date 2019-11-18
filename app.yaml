@@ -1,1 +1,6 @@
+datasource:
+  host: 123.57.237.176
+  port: 3306
+  username: root
+  password: 123456
 

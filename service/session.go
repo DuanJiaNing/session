@@ -8,6 +8,8 @@ import (
 	"google.golang.org/grpc"
 
 	pb "com/duan/session"
+	"session/app"
+	"session/db"
 )
 
 type SessionServer struct {
@@ -24,6 +26,14 @@ func (s *SessionServer) UserCountInSession(context.Context, *pb.UserCountInSessi
 }
 
 func (s *SessionServer) Join(ctx context.Context, req *pb.JoinRequest) (*pb.JoinResponse, error) {
+	engine, err := db.Engine()
+	if err != nil {
+		return nil, app.RpcError(err, "Internal error")
+	}
+
+	// check session exist
+	//insert
+
 	fmt.Println("Join been called...")
 	fmt.Println(req)
 	//return nil, errors.New("not support yet")
