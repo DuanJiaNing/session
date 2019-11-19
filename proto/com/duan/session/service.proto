@@ -11,7 +11,7 @@ message UserSessionData {
 }
 
 message JoinRequest {
-    string session_id = 1;
+    int64 session_id = 1;
     string user_id = 2;
 }
 
@@ -20,7 +20,7 @@ message JoinResponse {
 }
 
 message LeaveRequest {
-    string session_id = 1;
+    int64 session_id = 1;
     string user_id = 2;
 }
 
@@ -29,7 +29,7 @@ message LeaveResponse {
 }
 
 message RefreshStatusRequest {
-    string session_id = 1;
+    int64 session_id = 1;
     string user_id = 2;
 }
 
@@ -38,7 +38,7 @@ message RefreshStatusResponse {
 }
 
 message PauseRequest {
-    string session_id = 1;
+    int64 session_id = 1;
     string user_id = 2;
 }
 
@@ -47,14 +47,39 @@ message PauseResponse {
 }
 
 message UserCountInSessionRequest {
-    string session_id = 1;
+    int64 session_id = 1;
 }
 
 message UserCountInSessionResponse {
     int32 count = 1;
 }
 
+message CreateSessionRequest {
+    SessionType type = 1;
+    string topic = 2;
+}
+
+message CreateSessionResponse {
+    int64 session_id = 1;
+}
+
+message UpdateSessionStatusRequest {
+    SessionStatus status = 1;
+    int64 session_id = 2;
+}
+
+message UpdateSessionStatusResponse {
+    SessionStatus status = 1;
+    int64 session_id = 2;
+}
+
 service SessionService {
+
+    rpc CreateSession (CreateSessionRequest) returns (CreateSessionResponse) {
+    }
+
+    rpc UpdateSessionStatus (UpdateSessionStatusRequest) returns (UpdateSessionStatusResponse) {
+    }
 
     // only count user_session.status is OPEN and PENDING
     rpc UserCountInSession (UserCountInSessionRequest) returns (UserCountInSessionResponse) {
@@ -71,9 +96,5 @@ service SessionService {
     }
 
     rpc Leave (LeaveRequest) returns (LeaveResponse) {
-        // option (google.api.http) = {
-        //   post: "/v1alpha1/insertData"
-        //   body: "*"
-        // };
     }
 }

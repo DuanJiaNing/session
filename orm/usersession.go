@@ -1,14 +1,16 @@
 package orm
 
+import "time"
+
 type UserSession struct {
-	id           string
-	ttl          int32
-	SessionId    string
-	UserId       string
-	status       int32
-	InsertTime   int64
-	JoinTime     int64
-	ReactiveTime int64
-	LeaveTime    int64
-	CloseTime    int64
+	id           *int64
+	ttl          *int32
+	SessionId    *int64
+	UserId       *string
+	status       *int32
+	InsertTime   *time.Time
+	JoinTime     *time.Time
+	ReactiveTime *time.Time
+	LeaveTime    *time.Time
+	CloseTime    *time.Time
 }

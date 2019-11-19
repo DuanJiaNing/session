@@ -1,11 +1,13 @@
 package orm
 
+import "time"
+
 type Session struct {
-	Id          string
-	SessionType int32
-	topic       string
-	status      int32
-	InsertTime  int64
-	OpenTime    int64
-	CloseTime   int64
+	Id          *int64
+	SessionType *int32
+	Topic       *string
+	Status      *int32
+	InsertTime  *time.Time
+	OpenTime    *time.Time
+	CloseTime   *time.Time
 }
