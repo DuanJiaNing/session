@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"fmt"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -8,6 +9,11 @@ import (
 
 type config struct {
 	DataSource *datasource `yaml:"datasource"`
+	GRpc       *grpc       `yaml:"grpc"`
+}
+
+type grpc struct {
+	ListenAddress string `yaml:"listen-address"`
 }
 
 type datasource struct {
@@ -21,9 +27,11 @@ var (
 	conf *config
 )
 
-func init() {
+func Init(path string) {
+	fmt.Println("parse config file at: ", path)
+
 	conf = &config{}
-	if f, err := os.Open("../app.yaml"); err != nil {
+	if f, err := os.Open(path); err != nil {
 		panic(err)
 	} else {
 		if err = yaml.NewDecoder(f).Decode(conf); err != nil {
@@ -34,4 +42,8 @@ func init() {
 
 func DataSource() *datasource {
 	return conf.DataSource
+}
+
+func GRpc() *grpc {
+	return conf.GRpc
 }

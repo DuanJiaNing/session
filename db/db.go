@@ -11,20 +11,24 @@ import (
 	"session/log"
 )
 
+type Client interface {
+	InsertOne(interface{}) (int64, error)
+}
+
 var (
 	engine *xorm.Engine
-)
 
-func Engine() (*xorm.Engine, error) {
-	if engine == nil {
-		err := prepareEngine()
-		if err != nil {
-			return nil, err
+	NewClient = func() (Client, error) {
+		if engine == nil {
+			err := prepareEngine()
+			if err != nil {
+				return nil, err
+			}
 		}
-	}
 
-	return engine, nil
-}
+		return engine, nil
+	}
+)
 
 func prepareEngine() error {
 	var err error
