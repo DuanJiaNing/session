@@ -4,24 +4,29 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"session/orm"
-	"session/utils"
 
+	"github.com/go-xorm/xorm"
 	"google.golang.org/grpc"
 
 	pb "com/duan/session"
 	"session/app"
 	"session/db"
+	"session/orm"
+	"session/utils"
 )
 
 type sessionServer struct {
+}
+
+func (s *sessionServer) Close(context.Context, *pb.CloseRequest) (*pb.CloseResponse, error) {
+	panic("implement me")
 }
 
 func RegisterSessionServiceServer(s *grpc.Server) {
 	pb.RegisterSessionServiceServer(s, &sessionServer{})
 }
 
-func (s *sessionServer) CreateSession(ctx context.Context, req *pb.CreateSessionRequest) (*pb.CreateSessionResponse, error) {
+func (s *sessionServer) Create(ctx context.Context, req *pb.CreateRequest) (*pb.CreateResponse, error) {
 	client, err := db.NewClient()
 	if err != nil {
 		return nil, app.WithInternalError(err)
@@ -31,39 +36,65 @@ func (s *sessionServer) CreateSession(ctx context.Context, req *pb.CreateSession
 		return nil, app.Error("topic can not be empty")
 	}
 
-	code := int32(pb.SessionType_LONG_TERM)
 	topic := req.Topic
-	status := int32(pb.SessionStatus_NEWBORN)
 	ss := &orm.Session{
-		Status:      status,
+		Status:      app.CodeOfSessionStatus(pb.SessionStatus_NEWBORN),
 		Topic:       topic,
-		SessionType: code,
+		SessionType: app.CodeOfSessionType(pb.SessionType_LONG_TERM),
 	}
 	i, err := client.InsertOne(ss)
-	if err != nil {
-		return nil, app.WithInternalError(err)
-	}
-	if i != 1 {
-		return nil, app.DbExecuteEffectRowsIncorrect()
+	if err = app.CheckDbExecuteResult(i, err, 1); err != nil {
+		return nil, err
 	}
 
-	return &pb.CreateSessionResponse{
+	return &pb.CreateResponse{
 		SessionId: ss.Id,
 	}, nil
 }
 
-func (s *sessionServer) UpdateSessionStatus(ctx context.Context, req *pb.UpdateSessionStatusRequest) (
-	*pb.UpdateSessionStatusResponse, error) {
-	se := getSessionById(req.SessionId)
+func (s *sessionServer) Open(ctx context.Context, req *pb.OpenRequest) (
+	*pb.OpenResponse, error) {
+	client, err := db.NewClient()
+	if err != nil {
+		return nil, app.WithInternalError(err)
+	}
+
+	se, err := getSessionById(client, req.SessionId)
+	if err != nil {
+		return nil, app.WithInternalError(err)
+	}
 	if se == nil {
 		return nil, app.Error("session not exist")
 	}
-	//TODO
-	return nil, nil
+
+	if app.CodeOfSessionStatus(pb.SessionStatus_SESSION_OPEN) == se.Status {
+		return nil, app.Error("session already open")
+	}
+
+	if app.CodeOfSessionStatus(pb.SessionStatus_SESSION_CLOSED) == se.Status {
+		return nil, app.Error("session closed, can not be open again")
+	}
+
+	se.Status = app.CodeOfSessionStatus(pb.SessionStatus_SESSION_OPEN)
+	affected, err := client.ID(se.Id).Update(se)
+	if err = app.CheckDbExecuteResult(affected, err, 1); err != nil {
+		return nil, err
+	}
+
+	return &pb.OpenResponse{
+		Status:    pb.SessionStatus_SESSION_OPEN,
+		SessionId: se.Id,
+	}, nil
 }
 
-func getSessionById(sessionId int64) *orm.Session {
-	return nil
+func getSessionById(client *xorm.Engine, sessionId int64) (*orm.Session, error) {
+	session := &orm.Session{}
+	has, err := client.ID(sessionId).Get(session)
+	if !has || err != nil {
+		return nil, err
+	}
+
+	return session, nil
 }
 
 func (s *sessionServer) UserCountInSession(context.Context, *pb.UserCountInSessionRequest) (

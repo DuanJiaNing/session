@@ -493,7 +493,7 @@ func (m *UserCountInSessionResponse) GetCount() int32 {
 	return 0
 }
 
-type CreateSessionRequest struct {
+type CreateRequest struct {
 	Type                 SessionType `protobuf:"varint,1,opt,name=type,proto3,enum=com.duan.session.SessionType" json:"type,omitempty"`
 	Topic                string      `protobuf:"bytes,2,opt,name=topic,proto3" json:"topic,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
@@ -501,132 +501,124 @@ type CreateSessionRequest struct {
 	XXX_sizecache        int32       `json:"-"`
 }
 
-func (m *CreateSessionRequest) Reset()         { *m = CreateSessionRequest{} }
-func (m *CreateSessionRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateSessionRequest) ProtoMessage()    {}
-func (*CreateSessionRequest) Descriptor() ([]byte, []int) {
+func (m *CreateRequest) Reset()         { *m = CreateRequest{} }
+func (m *CreateRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateRequest) ProtoMessage()    {}
+func (*CreateRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c8c59904acec8791, []int{11}
 }
 
-func (m *CreateSessionRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateSessionRequest.Unmarshal(m, b)
+func (m *CreateRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateRequest.Unmarshal(m, b)
 }
-func (m *CreateSessionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateSessionRequest.Marshal(b, m, deterministic)
+func (m *CreateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateRequest.Marshal(b, m, deterministic)
 }
-func (m *CreateSessionRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateSessionRequest.Merge(m, src)
+func (m *CreateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateRequest.Merge(m, src)
 }
-func (m *CreateSessionRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateSessionRequest.Size(m)
+func (m *CreateRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateRequest.Size(m)
 }
-func (m *CreateSessionRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateSessionRequest.DiscardUnknown(m)
+func (m *CreateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CreateSessionRequest proto.InternalMessageInfo
+var xxx_messageInfo_CreateRequest proto.InternalMessageInfo
 
-func (m *CreateSessionRequest) GetType() SessionType {
+func (m *CreateRequest) GetType() SessionType {
 	if m != nil {
 		return m.Type
 	}
 	return SessionType_DONT_USE_0_IN_SESSIONTYPE
 }
 
-func (m *CreateSessionRequest) GetTopic() string {
+func (m *CreateRequest) GetTopic() string {
 	if m != nil {
 		return m.Topic
 	}
 	return ""
 }
 
-type CreateSessionResponse struct {
+type CreateResponse struct {
 	SessionId            int64    `protobuf:"varint,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CreateSessionResponse) Reset()         { *m = CreateSessionResponse{} }
-func (m *CreateSessionResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateSessionResponse) ProtoMessage()    {}
-func (*CreateSessionResponse) Descriptor() ([]byte, []int) {
+func (m *CreateResponse) Reset()         { *m = CreateResponse{} }
+func (m *CreateResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateResponse) ProtoMessage()    {}
+func (*CreateResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c8c59904acec8791, []int{12}
 }
 
-func (m *CreateSessionResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateSessionResponse.Unmarshal(m, b)
+func (m *CreateResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateResponse.Unmarshal(m, b)
 }
-func (m *CreateSessionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateSessionResponse.Marshal(b, m, deterministic)
+func (m *CreateResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateResponse.Marshal(b, m, deterministic)
 }
-func (m *CreateSessionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateSessionResponse.Merge(m, src)
+func (m *CreateResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateResponse.Merge(m, src)
 }
-func (m *CreateSessionResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateSessionResponse.Size(m)
+func (m *CreateResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateResponse.Size(m)
 }
-func (m *CreateSessionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateSessionResponse.DiscardUnknown(m)
+func (m *CreateResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CreateSessionResponse proto.InternalMessageInfo
+var xxx_messageInfo_CreateResponse proto.InternalMessageInfo
 
-func (m *CreateSessionResponse) GetSessionId() int64 {
+func (m *CreateResponse) GetSessionId() int64 {
 	if m != nil {
 		return m.SessionId
 	}
 	return 0
 }
 
-type UpdateSessionStatusRequest struct {
-	Status               SessionStatus `protobuf:"varint,1,opt,name=status,proto3,enum=com.duan.session.SessionStatus" json:"status,omitempty"`
-	SessionId            int64         `protobuf:"varint,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+type OpenRequest struct {
+	SessionId            int64    `protobuf:"varint,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UpdateSessionStatusRequest) Reset()         { *m = UpdateSessionStatusRequest{} }
-func (m *UpdateSessionStatusRequest) String() string { return proto.CompactTextString(m) }
-func (*UpdateSessionStatusRequest) ProtoMessage()    {}
-func (*UpdateSessionStatusRequest) Descriptor() ([]byte, []int) {
+func (m *OpenRequest) Reset()         { *m = OpenRequest{} }
+func (m *OpenRequest) String() string { return proto.CompactTextString(m) }
+func (*OpenRequest) ProtoMessage()    {}
+func (*OpenRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c8c59904acec8791, []int{13}
 }
 
-func (m *UpdateSessionStatusRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateSessionStatusRequest.Unmarshal(m, b)
+func (m *OpenRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_OpenRequest.Unmarshal(m, b)
 }
-func (m *UpdateSessionStatusRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateSessionStatusRequest.Marshal(b, m, deterministic)
+func (m *OpenRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_OpenRequest.Marshal(b, m, deterministic)
 }
-func (m *UpdateSessionStatusRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateSessionStatusRequest.Merge(m, src)
+func (m *OpenRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OpenRequest.Merge(m, src)
 }
-func (m *UpdateSessionStatusRequest) XXX_Size() int {
-	return xxx_messageInfo_UpdateSessionStatusRequest.Size(m)
+func (m *OpenRequest) XXX_Size() int {
+	return xxx_messageInfo_OpenRequest.Size(m)
 }
-func (m *UpdateSessionStatusRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateSessionStatusRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateSessionStatusRequest proto.InternalMessageInfo
-
-func (m *UpdateSessionStatusRequest) GetStatus() SessionStatus {
-	if m != nil {
-		return m.Status
-	}
-	return SessionStatus_DONT_USE_0_IN_SESSIONSTATUS
+func (m *OpenRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_OpenRequest.DiscardUnknown(m)
 }
 
-func (m *UpdateSessionStatusRequest) GetSessionId() int64 {
+var xxx_messageInfo_OpenRequest proto.InternalMessageInfo
+
+func (m *OpenRequest) GetSessionId() int64 {
 	if m != nil {
 		return m.SessionId
 	}
 	return 0
 }
 
-type UpdateSessionStatusResponse struct {
+type OpenResponse struct {
 	Status               SessionStatus `protobuf:"varint,1,opt,name=status,proto3,enum=com.duan.session.SessionStatus" json:"status,omitempty"`
 	SessionId            int64         `protobuf:"varint,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -634,39 +626,125 @@ type UpdateSessionStatusResponse struct {
 	XXX_sizecache        int32         `json:"-"`
 }
 
-func (m *UpdateSessionStatusResponse) Reset()         { *m = UpdateSessionStatusResponse{} }
-func (m *UpdateSessionStatusResponse) String() string { return proto.CompactTextString(m) }
-func (*UpdateSessionStatusResponse) ProtoMessage()    {}
-func (*UpdateSessionStatusResponse) Descriptor() ([]byte, []int) {
+func (m *OpenResponse) Reset()         { *m = OpenResponse{} }
+func (m *OpenResponse) String() string { return proto.CompactTextString(m) }
+func (*OpenResponse) ProtoMessage()    {}
+func (*OpenResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c8c59904acec8791, []int{14}
 }
 
-func (m *UpdateSessionStatusResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateSessionStatusResponse.Unmarshal(m, b)
+func (m *OpenResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_OpenResponse.Unmarshal(m, b)
 }
-func (m *UpdateSessionStatusResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateSessionStatusResponse.Marshal(b, m, deterministic)
+func (m *OpenResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_OpenResponse.Marshal(b, m, deterministic)
 }
-func (m *UpdateSessionStatusResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateSessionStatusResponse.Merge(m, src)
+func (m *OpenResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OpenResponse.Merge(m, src)
 }
-func (m *UpdateSessionStatusResponse) XXX_Size() int {
-	return xxx_messageInfo_UpdateSessionStatusResponse.Size(m)
+func (m *OpenResponse) XXX_Size() int {
+	return xxx_messageInfo_OpenResponse.Size(m)
 }
-func (m *UpdateSessionStatusResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateSessionStatusResponse.DiscardUnknown(m)
+func (m *OpenResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_OpenResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UpdateSessionStatusResponse proto.InternalMessageInfo
+var xxx_messageInfo_OpenResponse proto.InternalMessageInfo
 
-func (m *UpdateSessionStatusResponse) GetStatus() SessionStatus {
+func (m *OpenResponse) GetStatus() SessionStatus {
 	if m != nil {
 		return m.Status
 	}
 	return SessionStatus_DONT_USE_0_IN_SESSIONSTATUS
 }
 
-func (m *UpdateSessionStatusResponse) GetSessionId() int64 {
+func (m *OpenResponse) GetSessionId() int64 {
+	if m != nil {
+		return m.SessionId
+	}
+	return 0
+}
+
+type CloseRequest struct {
+	SessionId            int64    `protobuf:"varint,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CloseRequest) Reset()         { *m = CloseRequest{} }
+func (m *CloseRequest) String() string { return proto.CompactTextString(m) }
+func (*CloseRequest) ProtoMessage()    {}
+func (*CloseRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c8c59904acec8791, []int{15}
+}
+
+func (m *CloseRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CloseRequest.Unmarshal(m, b)
+}
+func (m *CloseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CloseRequest.Marshal(b, m, deterministic)
+}
+func (m *CloseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CloseRequest.Merge(m, src)
+}
+func (m *CloseRequest) XXX_Size() int {
+	return xxx_messageInfo_CloseRequest.Size(m)
+}
+func (m *CloseRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CloseRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CloseRequest proto.InternalMessageInfo
+
+func (m *CloseRequest) GetSessionId() int64 {
+	if m != nil {
+		return m.SessionId
+	}
+	return 0
+}
+
+type CloseResponse struct {
+	Status               SessionStatus `protobuf:"varint,1,opt,name=status,proto3,enum=com.duan.session.SessionStatus" json:"status,omitempty"`
+	SessionId            int64         `protobuf:"varint,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *CloseResponse) Reset()         { *m = CloseResponse{} }
+func (m *CloseResponse) String() string { return proto.CompactTextString(m) }
+func (*CloseResponse) ProtoMessage()    {}
+func (*CloseResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c8c59904acec8791, []int{16}
+}
+
+func (m *CloseResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CloseResponse.Unmarshal(m, b)
+}
+func (m *CloseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CloseResponse.Marshal(b, m, deterministic)
+}
+func (m *CloseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CloseResponse.Merge(m, src)
+}
+func (m *CloseResponse) XXX_Size() int {
+	return xxx_messageInfo_CloseResponse.Size(m)
+}
+func (m *CloseResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CloseResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CloseResponse proto.InternalMessageInfo
+
+func (m *CloseResponse) GetStatus() SessionStatus {
+	if m != nil {
+		return m.Status
+	}
+	return SessionStatus_DONT_USE_0_IN_SESSIONSTATUS
+}
+
+func (m *CloseResponse) GetSessionId() int64 {
 	if m != nil {
 		return m.SessionId
 	}
@@ -685,50 +763,53 @@ func init() {
 	proto.RegisterType((*PauseResponse)(nil), "com.duan.session.PauseResponse")
 	proto.RegisterType((*UserCountInSessionRequest)(nil), "com.duan.session.UserCountInSessionRequest")
 	proto.RegisterType((*UserCountInSessionResponse)(nil), "com.duan.session.UserCountInSessionResponse")
-	proto.RegisterType((*CreateSessionRequest)(nil), "com.duan.session.CreateSessionRequest")
-	proto.RegisterType((*CreateSessionResponse)(nil), "com.duan.session.CreateSessionResponse")
-	proto.RegisterType((*UpdateSessionStatusRequest)(nil), "com.duan.session.UpdateSessionStatusRequest")
-	proto.RegisterType((*UpdateSessionStatusResponse)(nil), "com.duan.session.UpdateSessionStatusResponse")
+	proto.RegisterType((*CreateRequest)(nil), "com.duan.session.CreateRequest")
+	proto.RegisterType((*CreateResponse)(nil), "com.duan.session.CreateResponse")
+	proto.RegisterType((*OpenRequest)(nil), "com.duan.session.OpenRequest")
+	proto.RegisterType((*OpenResponse)(nil), "com.duan.session.OpenResponse")
+	proto.RegisterType((*CloseRequest)(nil), "com.duan.session.CloseRequest")
+	proto.RegisterType((*CloseResponse)(nil), "com.duan.session.CloseResponse")
 }
 
 func init() { proto.RegisterFile("com/duan/session/service.proto", fileDescriptor_c8c59904acec8791) }
 
 var fileDescriptor_c8c59904acec8791 = []byte{
-	// 531 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x55, 0x51, 0x6f, 0xd3, 0x30,
-	0x10, 0xee, 0x46, 0xdb, 0x69, 0xd7, 0x76, 0x20, 0xd3, 0x89, 0xcd, 0x68, 0x1b, 0x18, 0x09, 0x90,
-	0x18, 0x99, 0xd6, 0x49, 0x20, 0xf1, 0xba, 0x01, 0xea, 0x84, 0x10, 0xf2, 0xd6, 0x47, 0x54, 0xa5,
-	0x89, 0x11, 0x79, 0x58, 0x9c, 0xc5, 0xce, 0xa4, 0xfe, 0x1d, 0x7e, 0x29, 0xb2, 0xe3, 0x76, 0x49,
-	0x7a, 0x65, 0x95, 0x1a, 0x9e, 0xa2, 0xf8, 0xbe, 0xbb, 0xef, 0x3b, 0xfb, 0xfc, 0x19, 0x0e, 0x03,
-	0x79, 0x73, 0x12, 0x66, 0x7e, 0x7c, 0xa2, 0x84, 0x52, 0x91, 0x34, 0xdf, 0xf4, 0x2e, 0x0a, 0x84,
-	0x97, 0xa4, 0x52, 0x4b, 0xf2, 0x24, 0x90, 0x37, 0x9e, 0x89, 0x7b, 0x2e, 0x4e, 0xb1, 0x0c, 0xfb,
-	0xcd, 0x33, 0xe8, 0xab, 0x85, 0x78, 0xa6, 0x44, 0x3a, 0x2e, 0x81, 0xd8, 0x14, 0x1e, 0x8f, 0x94,
-	0x48, 0xaf, 0xf2, 0xc5, 0x0b, 0x5f, 0xfb, 0xe4, 0x0c, 0xb6, 0x1c, 0x66, 0x6f, 0xe3, 0xc5, 0xc6,
-	0xdb, 0xce, 0x60, 0xdf, 0xab, 0x72, 0x7b, 0x0e, 0xcf, 0x67, 0x48, 0x72, 0x0a, 0x4d, 0x53, 0x7d,
-	0x6f, 0xd3, 0x66, 0x1c, 0x2c, 0x66, 0x14, 0x58, 0xb8, 0x85, 0xb2, 0xcf, 0xd0, 0xb9, 0x94, 0x51,
-	0xcc, 0xc5, 0x6d, 0x26, 0x94, 0x26, 0x07, 0x00, 0x0e, 0x3b, 0x8e, 0x42, 0xcb, 0xfc, 0x88, 0x6f,
-	0xbb, 0x95, 0x61, 0x48, 0x9e, 0xc1, 0x96, 0x95, 0x1f, 0x85, 0x96, 0x63, 0x9b, 0xb7, 0xcd, 0xef,
-	0x30, 0x64, 0xd7, 0xd0, 0xcd, 0xcb, 0xa8, 0x44, 0xc6, 0x4a, 0x90, 0x0b, 0xe8, 0x16, 0xfb, 0x74,
-	0x3d, 0xbc, 0xfc, 0xa7, 0x22, 0xd3, 0x37, 0xef, 0x64, 0xf7, 0x0b, 0xec, 0x0b, 0x74, 0xbf, 0x09,
-	0xff, 0x4e, 0xac, 0xab, 0x6e, 0x04, 0x3d, 0x57, 0xa7, 0x56, 0x79, 0xdf, 0xa1, 0xcf, 0xc5, 0xaf,
-	0x54, 0xa8, 0xdf, 0x57, 0xda, 0xd7, 0x99, 0x5a, 0x57, 0xe6, 0x4f, 0xd8, 0xad, 0xd4, 0xab, 0x7b,
-	0x37, 0x7f, 0xf8, 0x99, 0xaa, 0x63, 0x37, 0x5d, 0x9d, 0x5a, 0xe5, 0x7d, 0x82, 0x7d, 0x13, 0x3f,
-	0x97, 0x59, 0xac, 0x87, 0xf1, 0x6c, 0x4a, 0x57, 0xd2, 0xca, 0x06, 0x40, 0xb1, 0x5c, 0xa7, 0xaf,
-	0x0f, 0xad, 0xc0, 0x44, 0x6c, 0x5e, 0x8b, 0xe7, 0x3f, 0x6c, 0x0c, 0xfd, 0xf3, 0x54, 0xf8, 0x5a,
-	0x54, 0xa8, 0x4e, 0xa1, 0xa9, 0xa7, 0x89, 0xb0, 0xe0, 0x1d, 0xec, 0x12, 0x39, 0xfc, 0xf5, 0x34,
-	0x11, 0xdc, 0x42, 0x0d, 0x81, 0x96, 0x49, 0x14, 0xb8, 0x8d, 0xca, 0x7f, 0xd8, 0x07, 0xd8, 0xad,
-	0x10, 0x38, 0x3d, 0x0f, 0x34, 0xa3, 0x81, 0x8e, 0x92, 0xf0, 0x3e, 0xaf, 0x3c, 0x5c, 0x1f, 0xa1,
-	0xad, 0xec, 0x82, 0x13, 0x78, 0xb4, 0x54, 0xa0, 0xcb, 0x73, 0xf0, 0x0a, 0xeb, 0x66, 0x95, 0x35,
-	0x83, 0xe7, 0x28, 0xab, 0xd3, 0xfc, 0x9f, 0x68, 0x07, 0x7f, 0x5a, 0xb0, 0x33, 0x4b, 0xcc, 0xad,
-	0x96, 0x4c, 0xa0, 0x57, 0xda, 0x37, 0xf2, 0x7a, 0x91, 0x0b, 0x3b, 0x39, 0xfa, 0xe6, 0x41, 0x5c,
-	0xde, 0x0c, 0x6b, 0x10, 0x0d, 0x4f, 0x91, 0x6e, 0xc9, 0x31, 0x32, 0xb3, 0x4b, 0x8f, 0x82, 0xbe,
-	0x5f, 0x11, 0x3d, 0x67, 0xbd, 0x05, 0xb2, 0x38, 0xa6, 0xe4, 0x1d, 0x7e, 0x51, 0xd0, 0x8b, 0x40,
-	0x8f, 0x57, 0x03, 0xcf, 0x29, 0xbf, 0x42, 0xd3, 0x18, 0x33, 0x41, 0xe6, 0xb8, 0xe0, 0xfb, 0xf4,
-	0x70, 0x59, 0x78, 0x5e, 0x68, 0x02, 0xbd, 0x92, 0x39, 0x61, 0xa7, 0x82, 0xb9, 0x21, 0x76, 0x2a,
-	0xa8, 0xcb, 0xb1, 0x06, 0xb9, 0x84, 0x96, 0x75, 0x16, 0x82, 0xc8, 0x29, 0x5a, 0x17, 0x3d, 0x5a,
-	0x1a, 0x2f, 0xd6, 0xb2, 0x9e, 0x8f, 0xd5, 0x2a, 0x3e, 0x2a, 0x58, 0xad, 0xd2, 0x63, 0xc1, 0x1a,
-	0x93, 0xb6, 0x7d, 0xa6, 0xcf, 0xfe, 0x06, 0x00, 0x00, 0xff, 0xff, 0x32, 0xb0, 0x59, 0xd3, 0x1f,
-	0x08, 0x00, 0x00,
+	// 552 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x55, 0x5d, 0x6f, 0xd3, 0x30,
+	0x14, 0xed, 0x46, 0xdb, 0x69, 0xb7, 0x69, 0x41, 0xd6, 0x10, 0x5b, 0xa4, 0x7d, 0x60, 0x24, 0x40,
+	0x62, 0xa4, 0x5a, 0xf7, 0x80, 0xc4, 0x6b, 0x07, 0xa8, 0x13, 0x5f, 0xf2, 0x36, 0x89, 0x17, 0x34,
+	0x65, 0x89, 0x07, 0x91, 0x58, 0x9c, 0xc5, 0xce, 0xa4, 0xfe, 0x27, 0x7e, 0x24, 0xf2, 0x47, 0x8b,
+	0xd3, 0x38, 0x74, 0x52, 0xc3, 0x53, 0x94, 0xdc, 0x73, 0xcf, 0x3d, 0x3e, 0xb9, 0xbe, 0x17, 0xf6,
+	0x22, 0x76, 0x33, 0x8c, 0x8b, 0x30, 0x1d, 0x72, 0xca, 0x79, 0xc2, 0xe4, 0x33, 0xbf, 0x4b, 0x22,
+	0x1a, 0x64, 0x39, 0x13, 0x0c, 0x3d, 0x8a, 0xd8, 0x4d, 0x20, 0xe3, 0x81, 0x89, 0xfb, 0xae, 0x0c,
+	0xf5, 0xd4, 0x19, 0xfe, 0xb3, 0x4a, 0xbc, 0xe0, 0x34, 0xbf, 0x2c, 0x81, 0xf0, 0x14, 0x1e, 0x5e,
+	0x70, 0x9a, 0x9f, 0xe9, 0x8f, 0x27, 0xa1, 0x08, 0xd1, 0x31, 0x6c, 0x18, 0xcc, 0xf6, 0xda, 0xc1,
+	0xda, 0xcb, 0xde, 0x68, 0x27, 0x58, 0xac, 0x1d, 0x18, 0x3c, 0x99, 0x21, 0xd1, 0x11, 0xb4, 0x25,
+	0xfb, 0xf6, 0xba, 0xca, 0xd8, 0xad, 0x66, 0x58, 0x55, 0x88, 0x82, 0xe2, 0x77, 0xd0, 0x3b, 0x65,
+	0x49, 0x4a, 0xe8, 0x6d, 0x41, 0xb9, 0x40, 0xbb, 0x00, 0x06, 0x7b, 0x99, 0xc4, 0xaa, 0xf2, 0x03,
+	0xb2, 0x69, 0xbe, 0x4c, 0x62, 0xf4, 0x04, 0x36, 0x94, 0xfc, 0x24, 0x56, 0x35, 0x36, 0x49, 0x57,
+	0xbe, 0x4e, 0x62, 0x7c, 0x0e, 0x9e, 0xa6, 0xe1, 0x19, 0x4b, 0x39, 0x45, 0x27, 0xe0, 0xd9, 0xe7,
+	0x34, 0x67, 0x78, 0xfa, 0x4f, 0x45, 0xf2, 0xdc, 0xa4, 0x57, 0xfc, 0xfd, 0x80, 0xdf, 0x83, 0xf7,
+	0x91, 0x86, 0x77, 0x74, 0x55, 0x75, 0x17, 0xd0, 0x37, 0x3c, 0x8d, 0xca, 0xfb, 0x0c, 0x5b, 0x84,
+	0x5e, 0xe7, 0x94, 0xff, 0x3c, 0x13, 0xa1, 0x28, 0xf8, 0xaa, 0x32, 0xbf, 0xc3, 0xe3, 0x05, 0xbe,
+	0xa6, 0xdd, 0xfc, 0x1a, 0x16, 0xbc, 0x09, 0x37, 0x0d, 0x4f, 0xa3, 0xf2, 0xde, 0xc2, 0x8e, 0x8c,
+	0x8f, 0x59, 0x91, 0x8a, 0x49, 0x3a, 0xeb, 0xd2, 0x7b, 0x69, 0xc5, 0x23, 0xf0, 0x5d, 0xb9, 0x46,
+	0xdf, 0x16, 0x74, 0x22, 0x19, 0x51, 0x79, 0x1d, 0xa2, 0x5f, 0xf0, 0x37, 0xe8, 0x8f, 0x73, 0x1a,
+	0x8a, 0xb9, 0x1f, 0x47, 0xd0, 0x16, 0xd3, 0x8c, 0x2a, 0xd4, 0xc0, 0x75, 0x7b, 0x0c, 0xef, 0xf9,
+	0x34, 0xa3, 0x44, 0x41, 0x25, 0xb3, 0x60, 0x59, 0x12, 0x19, 0x87, 0xf4, 0x0b, 0x1e, 0xc2, 0x60,
+	0xc6, 0x6c, 0x14, 0x2c, 0x91, 0x7f, 0x08, 0xbd, 0x2f, 0x19, 0xad, 0x39, 0xec, 0xfa, 0x22, 0xfa,
+	0x1a, 0x3c, 0x8d, 0x36, 0xe4, 0x6f, 0xa0, 0xcb, 0x55, 0xbf, 0x18, 0xe5, 0xfb, 0xb5, 0xca, 0x4d,
+	0x5b, 0x19, 0xf8, 0xb2, 0x3a, 0xaf, 0xc1, 0x1b, 0xff, 0x62, 0x75, 0xfd, 0x52, 0x81, 0xff, 0x80,
+	0xbe, 0x81, 0xff, 0x5f, 0x5d, 0xa3, 0xdf, 0x1d, 0x18, 0xcc, 0x12, 0xf5, 0x74, 0x46, 0x9f, 0xa0,
+	0xab, 0x1d, 0x47, 0x8e, 0x22, 0xa5, 0xbf, 0xec, 0x1f, 0xd4, 0x03, 0xb4, 0x6e, 0xdc, 0x42, 0x1f,
+	0xa0, 0x2d, 0x1d, 0x46, 0x8e, 0x1e, 0xb0, 0xfe, 0x93, 0xbf, 0x57, 0x17, 0x9e, 0x13, 0x9d, 0x42,
+	0x47, 0x79, 0x82, 0x1c, 0x50, 0xdb, 0x5b, 0x7f, 0xbf, 0x36, 0x3e, 0xe7, 0xba, 0x05, 0x54, 0xed,
+	0x71, 0xf4, 0xca, 0x7d, 0xcb, 0x9c, 0xb7, 0xc8, 0x3f, 0xbc, 0x1f, 0xd8, 0xf6, 0x41, 0x4e, 0x75,
+	0x97, 0x0f, 0xd6, 0xd2, 0x70, 0xf9, 0x60, 0x2f, 0x03, 0xdc, 0x42, 0x57, 0xd0, 0x2f, 0x4d, 0x36,
+	0xf4, 0xbc, 0x9a, 0xe2, 0x1a, 0xa5, 0xfe, 0x8b, 0xa5, 0x38, 0xdb, 0x6b, 0x35, 0x96, 0x5c, 0x5e,
+	0xdb, 0x73, 0xcf, 0xe5, 0x75, 0x69, 0x9e, 0x69, 0x2e, 0xb5, 0x30, 0x5c, 0x5c, 0xf6, 0x46, 0x72,
+	0x71, 0x95, 0x36, 0x0d, 0x6e, 0x5d, 0x75, 0xd5, 0x8e, 0x3f, 0xfe, 0x13, 0x00, 0x00, 0xff, 0xff,
+	0x69, 0xaa, 0x6e, 0x04, 0x5c, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -743,8 +824,9 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SessionServiceClient interface {
-	CreateSession(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error)
-	UpdateSessionStatus(ctx context.Context, in *UpdateSessionStatusRequest, opts ...grpc.CallOption) (*UpdateSessionStatusResponse, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
+	Open(ctx context.Context, in *OpenRequest, opts ...grpc.CallOption) (*OpenResponse, error)
+	Close(ctx context.Context, in *CloseRequest, opts ...grpc.CallOption) (*CloseResponse, error)
 	// only count user_session.status is OPEN and PENDING
 	UserCountInSession(ctx context.Context, in *UserCountInSessionRequest, opts ...grpc.CallOption) (*UserCountInSessionResponse, error)
 	Join(ctx context.Context, in *JoinRequest, opts ...grpc.CallOption) (*JoinResponse, error)
@@ -762,18 +844,27 @@ func NewSessionServiceClient(cc *grpc.ClientConn) SessionServiceClient {
 	return &sessionServiceClient{cc}
 }
 
-func (c *sessionServiceClient) CreateSession(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error) {
-	out := new(CreateSessionResponse)
-	err := c.cc.Invoke(ctx, "/com.duan.session.SessionService/CreateSession", in, out, opts...)
+func (c *sessionServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+	out := new(CreateResponse)
+	err := c.cc.Invoke(ctx, "/com.duan.session.SessionService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *sessionServiceClient) UpdateSessionStatus(ctx context.Context, in *UpdateSessionStatusRequest, opts ...grpc.CallOption) (*UpdateSessionStatusResponse, error) {
-	out := new(UpdateSessionStatusResponse)
-	err := c.cc.Invoke(ctx, "/com.duan.session.SessionService/UpdateSessionStatus", in, out, opts...)
+func (c *sessionServiceClient) Open(ctx context.Context, in *OpenRequest, opts ...grpc.CallOption) (*OpenResponse, error) {
+	out := new(OpenResponse)
+	err := c.cc.Invoke(ctx, "/com.duan.session.SessionService/Open", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sessionServiceClient) Close(ctx context.Context, in *CloseRequest, opts ...grpc.CallOption) (*CloseResponse, error) {
+	out := new(CloseResponse)
+	err := c.cc.Invoke(ctx, "/com.duan.session.SessionService/Close", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -827,8 +918,9 @@ func (c *sessionServiceClient) Leave(ctx context.Context, in *LeaveRequest, opts
 
 // SessionServiceServer is the server API for SessionService service.
 type SessionServiceServer interface {
-	CreateSession(context.Context, *CreateSessionRequest) (*CreateSessionResponse, error)
-	UpdateSessionStatus(context.Context, *UpdateSessionStatusRequest) (*UpdateSessionStatusResponse, error)
+	Create(context.Context, *CreateRequest) (*CreateResponse, error)
+	Open(context.Context, *OpenRequest) (*OpenResponse, error)
+	Close(context.Context, *CloseRequest) (*CloseResponse, error)
 	// only count user_session.status is OPEN and PENDING
 	UserCountInSession(context.Context, *UserCountInSessionRequest) (*UserCountInSessionResponse, error)
 	Join(context.Context, *JoinRequest) (*JoinResponse, error)
@@ -842,11 +934,14 @@ type SessionServiceServer interface {
 type UnimplementedSessionServiceServer struct {
 }
 
-func (*UnimplementedSessionServiceServer) CreateSession(ctx context.Context, req *CreateSessionRequest) (*CreateSessionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSession not implemented")
+func (*UnimplementedSessionServiceServer) Create(ctx context.Context, req *CreateRequest) (*CreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (*UnimplementedSessionServiceServer) UpdateSessionStatus(ctx context.Context, req *UpdateSessionStatusRequest) (*UpdateSessionStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSessionStatus not implemented")
+func (*UnimplementedSessionServiceServer) Open(ctx context.Context, req *OpenRequest) (*OpenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Open not implemented")
+}
+func (*UnimplementedSessionServiceServer) Close(ctx context.Context, req *CloseRequest) (*CloseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Close not implemented")
 }
 func (*UnimplementedSessionServiceServer) UserCountInSession(ctx context.Context, req *UserCountInSessionRequest) (*UserCountInSessionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserCountInSession not implemented")
@@ -868,38 +963,56 @@ func RegisterSessionServiceServer(s *grpc.Server, srv SessionServiceServer) {
 	s.RegisterService(&_SessionService_serviceDesc, srv)
 }
 
-func _SessionService_CreateSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateSessionRequest)
+func _SessionService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SessionServiceServer).CreateSession(ctx, in)
+		return srv.(SessionServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.duan.session.SessionService/CreateSession",
+		FullMethod: "/com.duan.session.SessionService/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SessionServiceServer).CreateSession(ctx, req.(*CreateSessionRequest))
+		return srv.(SessionServiceServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SessionService_UpdateSessionStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateSessionStatusRequest)
+func _SessionService_Open_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OpenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SessionServiceServer).UpdateSessionStatus(ctx, in)
+		return srv.(SessionServiceServer).Open(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.duan.session.SessionService/UpdateSessionStatus",
+		FullMethod: "/com.duan.session.SessionService/Open",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SessionServiceServer).UpdateSessionStatus(ctx, req.(*UpdateSessionStatusRequest))
+		return srv.(SessionServiceServer).Open(ctx, req.(*OpenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SessionService_Close_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CloseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SessionServiceServer).Close(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.duan.session.SessionService/Close",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SessionServiceServer).Close(ctx, req.(*CloseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -999,12 +1112,16 @@ var _SessionService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*SessionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateSession",
-			Handler:    _SessionService_CreateSession_Handler,
+			MethodName: "Create",
+			Handler:    _SessionService_Create_Handler,
 		},
 		{
-			MethodName: "UpdateSessionStatus",
-			Handler:    _SessionService_UpdateSessionStatus_Handler,
+			MethodName: "Open",
+			Handler:    _SessionService_Open_Handler,
+		},
+		{
+			MethodName: "Close",
+			Handler:    _SessionService_Close_Handler,
 		},
 		{
 			MethodName: "UserCountInSession",

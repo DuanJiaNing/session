@@ -54,31 +54,42 @@ message UserCountInSessionResponse {
     int32 count = 1;
 }
 
-message CreateSessionRequest {
+message CreateRequest {
     SessionType type = 1;
     string topic = 2;
 }
 
-message CreateSessionResponse {
+message CreateResponse {
     int64 session_id = 1;
 }
 
-message UpdateSessionStatusRequest {
+message OpenRequest {
+    int64 session_id = 2;
+}
+
+message OpenResponse {
     SessionStatus status = 1;
     int64 session_id = 2;
 }
 
-message UpdateSessionStatusResponse {
+message CloseRequest {
+    int64 session_id = 2;
+}
+
+message CloseResponse {
     SessionStatus status = 1;
     int64 session_id = 2;
 }
 
 service SessionService {
 
-    rpc CreateSession (CreateSessionRequest) returns (CreateSessionResponse) {
+    rpc Create (CreateRequest) returns (CreateResponse) {
     }
 
-    rpc UpdateSessionStatus (UpdateSessionStatusRequest) returns (UpdateSessionStatusResponse) {
+    rpc Open (OpenRequest) returns (OpenResponse) {
+    }
+
+    rpc Close (CloseRequest) returns (CloseResponse) {
     }
 
     // only count user_session.status is OPEN and PENDING

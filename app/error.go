@@ -5,8 +5,19 @@ import (
 	"session/log"
 )
 
-func DbExecuteEffectRowsIncorrect() error {
-	log.Warningf("execute sql effect rows incorrect")
+func CheckDbExecuteResult(affected int64, err error, exceptAffected int64) error {
+	if err != nil {
+		return WithInternalError(err)
+	}
+	if affected != exceptAffected {
+		return DbExecuteAffectedRowsIncorrect()
+	}
+
+	return nil
+}
+
+func DbExecuteAffectedRowsIncorrect() error {
+	log.Warningf("execute sql affected rows incorrect")
 	return internalError("db error")
 }
 
