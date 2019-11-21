@@ -52,8 +52,18 @@ func (s *sessionServer) CreateSession(ctx context.Context, req *pb.CreateSession
 	}, nil
 }
 
-func (s *sessionServer) UpdateSessionStatus(context.Context, *pb.UpdateSessionStatusRequest) (*pb.UpdateSessionStatusResponse, error) {
-	panic("implement me")
+func (s *sessionServer) UpdateSessionStatus(ctx context.Context, req *pb.UpdateSessionStatusRequest) (
+	*pb.UpdateSessionStatusResponse, error) {
+	se := getSessionById(req.SessionId)
+	if se == nil {
+		return nil, app.Error("session not exist")
+	}
+	//TODO
+	return nil, nil
+}
+
+func getSessionById(sessionId int64) *orm.Session {
+	return nil
 }
 
 func (s *sessionServer) UserCountInSession(context.Context, *pb.UserCountInSessionRequest) (

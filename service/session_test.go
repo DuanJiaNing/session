@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	pb "com/duan/session"
-	mockdb "session/test/mock/db"
 )
 
 func init() {
@@ -22,7 +21,6 @@ func Test_CreateSession(t *testing.T) {
 		name    string
 		args    args
 		success bool
-		mock    func(mc *mockdb.MockClient)
 	}{
 		{
 			name: "success",
@@ -33,7 +31,17 @@ func Test_CreateSession(t *testing.T) {
 				},
 			},
 			success: true,
-			mock:    nil,
+		},
+
+		{
+			name: "topic can not be empty",
+			args: args{
+				req: &pb.CreateSessionRequest{
+					Type:  pb.SessionType_LONG_TERM,
+					// Topic: "test topic 4",
+				},
+			},
+			success: false,
 		},
 	}
 
@@ -50,6 +58,10 @@ func Test_CreateSession(t *testing.T) {
 			response, err := server.CreateSession(context.Background(), tt.args.req)
 			if tt.success && err != nil {
 				t.Fatal(err)
+			}
+
+			if !tt.success && err == nil {
+				t.Fatal("should fail")
 			}
 			t.Log(response)
 		})
