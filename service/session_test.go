@@ -5,15 +5,12 @@ import (
 	"session/conf"
 	"testing"
 
-	"github.com/golang/mock/gomock"
-
 	pb "com/duan/session"
-	"session/db"
 	mockdb "session/test/mock/db"
 )
 
 func init() {
-	conf.Init("../app.yaml")
+	conf.Init("../app-test.yaml")
 }
 
 func Test_CreateSession(t *testing.T) {
@@ -28,8 +25,13 @@ func Test_CreateSession(t *testing.T) {
 		mock    func(mc *mockdb.MockClient)
 	}{
 		{
-			name:    "success",
-			args:    args{},
+			name: "success",
+			args: args{
+				req: &pb.CreateSessionRequest{
+					Type:  pb.SessionType_LONG_TERM,
+					Topic: "test topic 4",
+				},
+			},
 			success: true,
 			mock:    nil,
 		},
@@ -37,13 +39,13 @@ func Test_CreateSession(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ctrl := gomock.NewController(t)
-			defer ctrl.Finish()
-			dsc := mockdb.NewMockClient(ctrl)
-			tt.mock(dsc)
-			db.NewClient = func() (db.Client, error) {
-				return dsc, nil
-			}
+			//ctrl := gomock.NewController(t)
+			//defer ctrl.Finish()
+			//dsc := mockdb.NewMockClient(ctrl)
+			//tt.mock(dsc)
+			//db.NewClient = func() (db.Client, error) {
+			//	return dsc, nil
+			//}
 
 			response, err := server.CreateSession(context.Background(), tt.args.req)
 			if tt.success && err != nil {

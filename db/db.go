@@ -55,5 +55,5 @@ func prepareEngine() error {
 func getDataSource() string {
 	// "user:password@tcp(localhost:5555)/dbname?tls=skip-verify&autocommit=true"
 	dsn := conf.DataSource()
-	return fmt.Sprintf("%v:%v@tcp(%v:%v)/session", dsn.Username, dsn.Password, dsn.Host, dsn.Port)
+	return fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", dsn.Username, dsn.Password, dsn.Host, dsn.Port, dsn.Database)
 }

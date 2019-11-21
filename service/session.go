@@ -24,31 +24,31 @@ func RegisterSessionServiceServer(s *grpc.Server) {
 func (s *sessionServer) CreateSession(ctx context.Context, req *pb.CreateSessionRequest) (*pb.CreateSessionResponse, error) {
 	client, err := db.NewClient()
 	if err != nil {
-		return nil, app.RpcError(err, "Internal error")
+		return nil, app.WithInternalError(err)
 	}
 
 	if utils.BlankString(req.Topic) {
-		return nil, app.NewError("topic can not be empty")
+		return nil, app.Error("topic can not be empty")
 	}
 
 	code := int32(pb.SessionType_LONG_TERM)
 	topic := req.Topic
 	status := int32(pb.SessionStatus_NEWBORN)
 	ss := &orm.Session{
-		Status:      &status,
-		Topic:       &topic,
-		SessionType: &code,
+		Status:      status,
+		Topic:       topic,
+		SessionType: code,
 	}
 	i, err := client.InsertOne(ss)
 	if err != nil {
-		return nil, app.RpcError(err, "Internal error")
+		return nil, app.WithInternalError(err)
 	}
 	if i != 1 {
-		return nil, app.DbError()
+		return nil, app.DbExecuteEffectRowsIncorrect()
 	}
 
 	return &pb.CreateSessionResponse{
-		SessionId: *ss.Id,
+		SessionId: ss.Id,
 	}, nil
 }
 

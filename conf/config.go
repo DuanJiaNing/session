@@ -21,6 +21,7 @@ type datasource struct {
 	Port     int    `yaml:"port"`
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
+	Database string `yaml:"database"`
 }
 
 var (

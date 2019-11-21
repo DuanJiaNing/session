@@ -4,6 +4,3 @@ datasource:
   username: root
   password: 123456
   database: session
-
-grpc:
-  listen-address: ':50051'
