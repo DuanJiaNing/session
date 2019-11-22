@@ -11,7 +11,6 @@ import (
 	"session/log"
 )
 
-
 var (
 	engine *xorm.Engine
 )
@@ -24,6 +23,11 @@ func NewClient() (*xorm.Engine, error) {
 		}
 	}
 
+	err := engine.Ping()
+	if err != nil {
+		log.Errorf("fail to ping db: %v", err)
+		return nil, err
+	}
 	return engine, nil
 }
 

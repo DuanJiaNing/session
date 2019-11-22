@@ -6,25 +6,25 @@ import (
 )
 
 func Info(args ...interface{}) {
-	log.Println("info: " + fmt.Sprint(args))
+	log.Println("info: " + fmt.Sprint(args...))
 }
 
 func Infof(format string, args ...interface{}) {
-	log.Println("info: " + fmt.Sprintf(format, args))
+	log.Println("info: " + fmt.Sprintf(format, args...))
 }
 
 func Warning(args ...interface{}) {
-	log.Println("warn: " + fmt.Sprint(args))
+	log.Println("warn: " + fmt.Sprint(args...))
 }
 
 func Warningf(format string, args ...interface{}) {
-	log.Println("warn: " + fmt.Sprintf(format, args))
+	log.Println("warn: " + fmt.Sprintf(format, args...))
 }
 
 func Error(args ...interface{}) {
-	log.Println("error: " + fmt.Sprint(args))
+	log.Println("error: " + fmt.Sprint(args...))
 }
 
 func Errorf(format string, args ...interface{}) {
-	log.Println("error: " + fmt.Sprintf(format, args))
+	log.Println("error: " + fmt.Sprintf(format, args...))
 }

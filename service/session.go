@@ -18,12 +18,42 @@ import (
 type sessionServer struct {
 }
 
-func (s *sessionServer) Close(context.Context, *pb.CloseRequest) (*pb.CloseResponse, error) {
-	panic("implement me")
-}
-
 func RegisterSessionServiceServer(s *grpc.Server) {
 	pb.RegisterSessionServiceServer(s, &sessionServer{})
+}
+
+func (s *sessionServer) Close(ctx context.Context, req *pb.CloseRequest) (*pb.CloseResponse, error) {
+	client, err := db.NewClient()
+	if err != nil {
+		return nil, app.WithInternalError(err)
+	}
+
+	se, err := getSessionById(client, req.SessionId)
+	if err != nil {
+		return nil, app.WithInternalError(err)
+	}
+	if se == nil {
+		return nil, app.Error("session not exist")
+	}
+
+	if app.CodeOfSessionStatus(pb.SessionStatus_NEWBORN) == se.Status {
+		return nil, app.Error("session not open yet")
+	}
+
+	if app.CodeOfSessionStatus(pb.SessionStatus_SESSION_CLOSED) == se.Status {
+		return nil, app.Error("session already closed")
+	}
+
+	se.Status = app.CodeOfSessionStatus(pb.SessionStatus_SESSION_CLOSED)
+	affected, err := client.ID(se.Id).Update(se)
+	if err = app.CheckDbExecuteResult(affected, err, 1); err != nil {
+		return nil, err
+	}
+
+	return &pb.CloseResponse{
+		Status:    pb.SessionStatus_SESSION_CLOSED,
+		SessionId: se.Id,
+	}, nil
 }
 
 func (s *sessionServer) Create(ctx context.Context, req *pb.CreateRequest) (*pb.CreateResponse, error) {

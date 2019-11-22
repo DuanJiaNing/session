@@ -27,7 +27,7 @@ func WithInternalError(err error) error {
 
 // withInternalError report internal error with error stack
 func withInternalError(err error, msg string) error {
-	log.Warningf("got internal error: %v, msg: %v", err, msg)
+	log.Warningf("got internal error: %v, msg: %s", err, msg)
 	return errors.New(msg)
 }
 
