@@ -130,7 +130,9 @@ func getSessionById(client *xorm.Engine, sessionId int64) (*orm.Session, error) 
 func (s *sessionServer) UserCountInSession(context.Context, *pb.UserCountInSessionRequest) (
 	*pb.UserCountInSessionResponse, error) {
 	fmt.Println("UserCountInSession been called...")
-	return nil, errors.New("not support yet")
+	return &pb.UserCountInSessionResponse{
+		Count: 13,
+	}, nil
 }
 
 func (s *sessionServer) Join(ctx context.Context, req *pb.JoinRequest) (*pb.JoinResponse, error) {
