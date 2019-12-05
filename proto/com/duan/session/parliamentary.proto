@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.duan.session;
+
+enum ParliamentaryStatus {
+    DONT_USE_0_IN_PARLIAMENTARYSTATUS = 0;
+    IN = 1;
+    LEAVED = 2;
+    PENDING = 3;
+}
+
+message Parliamentary {
+    int64 id = 4;
+    ParliamentaryStatus status = 1;
+    string user_id = 2;
+    int64 session_id = 3;
+}

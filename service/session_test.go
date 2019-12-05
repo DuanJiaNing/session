@@ -2,8 +2,11 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"math"
+	"math/rand"
 	"testing"
+	"time"
 
 	pb "com/duan/session"
 	"session/conf"
@@ -12,6 +15,70 @@ import (
 
 func init() {
 	conf.Init("../app-test.yaml")
+}
+
+func Test_create_mock_data(t *testing.T) {
+	server := &sessionServer{}
+	ctx := context.Background()
+	count := 30
+	for i := 0; i < count; i++ {
+		sid := int64(rand.Intn(20) + 1)
+		_, _ = server.Open(ctx, &pb.OpenRequest{
+			SessionId: sid,
+		})
+		_, _ = server.Join(ctx, &pb.JoinRequest{
+			SessionId: sid,
+			UserId:    fmt.Sprintf("%v", time.Now().UnixNano()),
+		})
+	}
+}
+
+func Test_Join(t *testing.T) {
+	server := &sessionServer{}
+	type args struct {
+		req *pb.JoinRequest
+	}
+	tests := []struct {
+		name    string
+		args    args
+		success bool
+	}{
+		{
+			name: "success",
+			args: args{
+				req: &pb.JoinRequest{
+					SessionId: 1,
+					UserId:    "user01",
+				},
+			},
+			success: true,
+		},
+
+		{
+			name: "session not exist",
+			args: args{
+				req: &pb.JoinRequest{
+					SessionId: 100001,
+					UserId:    "user01111",
+				},
+			},
+			success: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			response, err := server.Join(context.Background(), tt.args.req)
+			if tt.success && err != nil {
+				t.Fatal(err)
+			}
+
+			if !tt.success && err == nil {
+				t.Fatal("should fail")
+			}
+			t.Log(response)
+		})
+	}
 }
 
 func Test_Create(t *testing.T) {

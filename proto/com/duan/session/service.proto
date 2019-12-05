@@ -3,11 +3,11 @@ syntax = "proto3";
 package com.duan.session;
 
 import "com/duan/session/session.proto";
-import "com/duan/session/user_session.proto";
+import "com/duan/session/parliamentary.proto";
 
-message UserSessionData {
+message SessionData {
     Session session = 1;
-    UserSession user = 2;
+    Parliamentary user = 2;
 }
 
 message JoinRequest {
@@ -16,7 +16,7 @@ message JoinRequest {
 }
 
 message JoinResponse {
-    UserSessionData user_session = 1;
+    SessionData data = 1;
 }
 
 message LeaveRequest {
@@ -25,7 +25,7 @@ message LeaveRequest {
 }
 
 message LeaveResponse {
-    UserSessionData user_session = 1;
+    SessionData data = 1;
 }
 
 message RefreshStatusRequest {
@@ -34,7 +34,7 @@ message RefreshStatusRequest {
 }
 
 message RefreshStatusResponse {
-    UserSessionData user_session = 1;
+    SessionData data = 1;
 }
 
 message PauseRequest {
@@ -43,15 +43,15 @@ message PauseRequest {
 }
 
 message PauseResponse {
-    UserSessionData user_session = 1;
+    SessionData data = 1;
 }
 
-message UserCountInSessionRequest {
+message ParliamentaryCountInSessionRequest {
     int64 session_id = 1;
 }
 
-message UserCountInSessionResponse {
-    int32 count = 1;
+message ParliamentaryCountInSessionResponse {
+    int64 count = 1;
 }
 
 message CreateRequest {
@@ -92,8 +92,8 @@ service SessionService {
     rpc Close (CloseRequest) returns (CloseResponse) {
     }
 
-    // only count user_session.status is OPEN and PENDING
-    rpc UserCountInSession (UserCountInSessionRequest) returns (UserCountInSessionResponse) {
+    // only count parliamentary.status is OPEN and PENDING
+    rpc ParliamentaryCountInSession (ParliamentaryCountInSessionRequest) returns (ParliamentaryCountInSessionResponse) {
     }
 
     rpc Join (JoinRequest) returns (JoinResponse) {

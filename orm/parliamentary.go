@@ -2,12 +2,12 @@ package orm
 
 import "time"
 
-type UserSession struct {
-	id           int64 `xorm: "pk autoincr"`
-	ttl          int32
+type Parliamentary struct {
+	Id           int64 `xorm: "pk autoincr"`
+	Ttl          int32
 	SessionId    int64
 	UserId       string
-	status       int32
+	Status       int32
 	InsertTime   time.Time
 	JoinTime     time.Time
 	ReactiveTime time.Time

@@ -2,6 +2,7 @@ package app
 
 import (
 	"errors"
+	"fmt"
 	"session/log"
 )
 
@@ -31,10 +32,14 @@ func withInternalError(err error, msg string) error {
 	return errors.New(msg)
 }
 
-// internalError report error these defined by developer
 func internalError(msg string) error {
 	log.Warningf("got internal error, error msg: %v", msg)
 	return errors.New(msg)
+}
+
+// InternalError report error these defined by developer
+func InternalErrorf(format string, args ...interface{}) error {
+	return internalError(fmt.Sprintf(format, args...))
 }
 
 // Error report checked error
